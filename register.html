@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mechanic Registration - CarAid</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Segoe UI, Tahoma, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #1f3c88 0%, #ff6600 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        max-height: 100vh;
+        overflow-y: hidden;
+        color: #333;
+      }
+
+      .registration-container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 25px 20px;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 450px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        animation: fadeInUp 0.8s ease-out;
+        position: relative;
+      }
+
+      .logo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+
+      .logo img {
+        height: 50px;
+        width: 50px;
+        transition: transform 0.3s ease;
+      }
+
+      .logo img:hover {
+        transform: scale(1.1);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 15px;
+        color: #1f3c88;
+        font-family: "Playfair Display", serif;
+        font-size: 1.8rem;
+        font-weight: 500;
+        position: relative;
+      }
+
+      h2::after {
+        content: "";
+        display: block;
+        width: 50px;
+        height: 2px;
+        background: #ff6600;
+        margin: 8px auto;
+        border-radius: 2px;
+        transition: width 0.4s ease;
+      }
+
+      h2:hover::after {
+        width: 80px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+        position: relative;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #333;
+        transition: color 0.3s ease;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        background: #f9f9f9;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: #1f3c88;
+        box-shadow: 0 0 8px rgba(31, 60, 136, 0.2);
+      }
+
+      .form-group input:invalid:not(:placeholder-shown),
+      .form-group select:invalid:not(:placeholder-shown) {
+        border-color: #e05500;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(90deg, #ff6600, #ff8533);
+        border: none;
+        border-radius: 6px;
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .submit-btn:hover {
+        background: linear-gradient(90deg, #e05500, #ff6600);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .submit-btn::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.5s ease, height 0.5s ease;
+      }
+
+      .submit-btn:hover::before {
+        width: 150px;
+        height: 150px;
+      }
+
+      .unique-code {
+        text-align: center;
+        font-weight: 600;
+        color: #1f3c88;
+        margin-bottom: 15px;
+        font-size: 1rem;
+        background: #e6f0ff;
+        padding: 8px;
+        border-radius: 6px;
+        animation: fadeIn 0.5s ease-out;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .error-message {
+        color: #e05500;
+        font-size: 0.8rem;
+        margin-top: 5px;
+        display: none;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Responsive Design */
+      @media only screen and (max-width: 600px) {
+        body {
+          font-size: 14px;
+          padding: 10px;
+        }
+
+        .registration-container {
+          max-width: 100%;
+          padding: 20px 15px;
+          border-radius: 8px;
+        }
+
+        .logo img {
+          height: 40px;
+          width: 40px;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group select {
+          padding: 8px 10px;
+          font-size: 0.85rem;
+        }
+
+        .submit-btn {
+          padding: 10px;
+          font-size: 0.9rem;
+        }
+      }
+
+      @media only screen and (min-width: 601px) and (max-width: 1024px) {
+        .registration-container {
+          max-width: 90%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="registration-container">
+      <div class="logo">
+        <img src="logo.png" alt="CarAid Logo" />
+      </div>
+      <h2>Mechanic Registration</h2>
+
+      <!-- STEP 1 -->
+      <form id="step1">
+        <div class="form-group">
+          <label for="passport">Passport Photo</label>
+          <input
+            type="file"
+            id="passport"
+            name="passport"
+            accept="image/*"
+            required
+          />
+          <span class="error-message" id="passport-error"
+            >Please upload a valid image file.</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            pattern="[A-Za-z\s]{2,50}"
+            required
+            placeholder="Enter your full name"
+          />
+          <span class="error-message" id="name-error"
+            >Please enter a valid name (2-50 characters, letters only).</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob" required max="2007-10-14" />
+          <span class="error-message" id="dob-error"
+            >Please select a valid date (must be 18 or older).</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number (with Country Code)</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            pattern="\+[0-9]{10,15}"
+            required
+            placeholder="+2348000000000"
+          />
+          <span class="error-message" id="phone-error"
+            >Please enter a valid phone number with country code.</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="example@domain.com"
+          />
+          <span class="error-message" id="email-error"
+            >Please enter a valid email address.</span
+          >
+        </div>
+        <button type="submit" class="submit-btn">Next</button>
+      </form>
+
+      <!-- STEP 2 -->
+      <form id="step2" class="hidden">
+        <p class="unique-code" id="uniqueCode"></p>
+        <div class="form-group">
+          <label for="nin">National Identification Number (NIN)</label>
+          <input
+            type="text"
+            id="nin"
+            name="nin"
+            pattern="[0-9]{11}"
+            required
+            placeholder="Enter 11-digit NIN"
+          />
+          <span class="error-message" id="nin-error"
+            >Please enter a valid 11-digit NIN.</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="bvn">Bank Verification Number (BVN)</label>
+          <input
+            type="text"
+            id="bvn"
+            name="bvn"
+            pattern="[0-9]{11}"
+            required
+            placeholder="Enter 11-digit BVN"
+          />
+          <span class="error-message" id="bvn-error"
+            >Please enter a valid 11-digit BVN.</span
+          >
+        </div>
+        <div class="form-group">
+          <label for="voterCard">Upload Voter’s Card</label>
+          <input
+            type="file"
+            id="voterCard"
+            name="voterCard"
+            accept="image/*"
+            required
+          />
+          <span class="error-message" id="voterCard-error"
+            >Please upload a valid image file.</span
+          >
+        </div>
+        <button type="submit" class="submit-btn">Submit Registration</button>
+      </form>
+    </div>
+
+    <script>
+      const step1 = document.getElementById("step1");
+      const step2 = document.getElementById("step2");
+      const uniqueCodeEl = document.getElementById("uniqueCode");
+
+      // Validate date to ensure user is at least 18 years old
+      function isValidDateOfBirth(dob) {
+        const today = new Date();
+        const birthDate = new Date(dob);
+        const age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (
+          monthDiff < 0 ||
+          (monthDiff === 0 && today.getDate() < birthDate.getDate())
+        ) {
+          return age - 1 >= 18;
+        }
+        return age >= 18;
+      }
+
+      // Show error message
+      function showError(inputId, errorId, message) {
+        const errorEl = document.getElementById(errorId);
+        errorEl.textContent = message;
+        errorEl.style.display = "block";
+        return false;
+      }
+
+      // Clear error message
+      function clearError(errorId) {
+        const errorEl = document.getElementById(errorId);
+        errorEl.style.display = "none";
+      }
+
+      // Validate file input
+      function validateFile(input) {
+        const file = input.files[0];
+        if (!file) return false;
+        const validTypes = ["image/jpeg", "image/png", "image/gif"];
+        return validTypes.includes(file.type) && file.size <= 5 * 1024 * 1024; // Max 5MB
+      }
+
+      // Handle Step 1 submission
+      step1.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Validate inputs
+        let isValid = true;
+
+        // Passport photo
+        const passport = document.getElementById("passport");
+        if (!validateFile(passport)) {
+          isValid = showError(
+            "passport",
+            "passport-error",
+            "Please upload a valid image file (JPEG/PNG/GIF, max 5MB)."
+          );
+        } else {
+          clearError("passport-error");
+        }
+
+        // Name
+        const name = document.getElementById("name");
+        if (!name.value.match(/[A-Za-z\s]{2,50}/)) {
+          isValid = showError(
+            "name",
+            "name-error",
+            "Please enter a valid name (2-50 characters, letters only)."
+          );
+        } else {
+          clearError("name-error");
+        }
+
+        // Date of Birth
+        const dob = document.getElementById("dob");
+        if (!dob.value || !isValidDateOfBirth(dob.value)) {
+          isValid = showError(
+            "dob",
+            "dob-error",
+            "You must be at least 18 years old."
+          );
+        } else {
+          clearError("dob-error");
+        }
+
+        // Phone
+        const phone = document.getElementById("phone");
+        if (!phone.value.match(/\+[0-9]{10,15}/)) {
+          isValid = showError(
+            "phone",
+            "phone-error",
+            "Please enter a valid phone number with country code."
+          );
+        } else {
+          clearError("phone-error");
+        }
+
+        // Email
+        const email = document.getElementById("email");
+        if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+          isValid = showError(
+            "email",
+            "email-error",
+            "Please enter a valid email address."
+          );
+        } else {
+          clearError("email-error");
+        }
+
+        if (isValid) {
+          // Generate unique code
+          const uniqueCode =
+            "CA" + Math.floor(10000000 + Math.random() * 90000000);
+          uniqueCodeEl.textContent = `Your Unique Mechanic Code: ${uniqueCode}`;
+
+          // Transition to Step 2
+          step1.classList.add("hidden");
+          step2.classList.remove("hidden");
+          step2.style.animation = "fadeInUp 0.5s ease-out";
+        }
+      });
+
+      // Handle Step 2 submission
+      step2.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let isValid = true;
+
+        // NIN
+        const nin = document.getElementById("nin");
+        if (!nin.value.match(/[0-9]{11}/)) {
+          isValid = showError(
+            "nin",
+            "nin-error",
+            "Please enter a valid 11-digit NIN."
+          );
+        } else {
+          clearError("nin-error");
+        }
+
+        // BVN
+        const bvn = document.getElementById("bvn");
+        if (!bvn.value.match(/[0-9]{11}/)) {
+          isValid = showError(
+            "bvn",
+            "bvn-error",
+            "Please enter a valid 11-digit BVN."
+          );
+        } else {
+          clearError("bvn-error");
+        }
+
+        // Voter's Card
+        const voterCard = document.getElementById("voterCard");
+        if (!validateFile(voterCard)) {
+          isValid = showError(
+            "voterCard",
+            "voterCard-error",
+            "Please upload a valid image file (JPEG/PNG/GIF, max 5MB)."
+          );
+        } else {
+          clearError("voterCard-error");
+        }
+
+        if (isValid) {
+          alert("Registration submitted successfully!");
+          window.location.href = "onboarding.html";
+        }
+      });
+    </script>
+  </body>
+</html>

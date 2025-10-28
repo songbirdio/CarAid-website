@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Playfair+Display:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>CarAid Welcome Page</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Segoe UI", Tahoma, sans-serif;
+      }
+
+      /* Page background with image + overlay */
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: url("cars.jpg") repeat center center/cover;
+        position: relative;
+        color: #333;
+        overflow-x: hidden;
+        max-height: 100vh; /* Restrict to viewport height */
+      }
+
+      /* Enhanced overlay with gradient */
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.4) 100%);
+        z-index: -1;
+      }
+
+      /* Top section for logo + motto */
+      header {
+        text-align: left;
+        padding: 10px 15px; /* Reduced padding */
+        animation: fadeInDown 0.8s ease-out;
+        height: 80px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1rem;
+        background-color: transparent;
+        box-shadow: 0 0.5px #103550;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 1.5rem;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav a {
+        text-decoration: none;
+        color:  #103550;
+        font-weight: 700;
+      }
+
+      nav a:hover {
+        color: #ff6600;
+      }
+
+      header img {
+        width:70px; /* Smaller logo */
+        height: 70px;
+        margin-top: 10px;
+        transition: transform 0.3s ease;
+      }
+
+      header img:hover {
+        transform: scale(1.1);
+      }
+
+      /* Welcome motto */
+      h4 {
+        font-size: 2rem; /* Smaller font */
+        font-weight: 700;
+        color: #103550;
+        letter-spacing: 1px;
+        display: inline-block;
+        font-variant: small-caps;
+        letter-spacing: 4.5px;
+        margin-bottom: 200px; /* Reduced margin */
+      }
+
+      /* Animated decorative underline */
+      h4::after {
+        content: "";
+        width: 0;
+        height: 2px;
+        background: #ff6600;
+        margin: 6px auto 0 auto;
+        border-radius: 2px;
+        transition: width 0.4s ease-in-out;
+      }
+
+      h4:hover::after {
+        width: 80%;
+      }
+
+      /* Welcome text */
+      .welcome {
+        text-align: center;
+        font-size: 1.4rem; /* Smaller font */
+      }
+
+       .marquee {
+            width: 100%;
+            background-color: transparent; /* burnt brown */
+            color: #f8763a;
+            font-size: 22px;
+            text-align: center;
+            padding: 16px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 2px 6px (0, 0, 0, 0.2);
+          }
+
+          .marquee-text {
+            display: inline-block;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            margin-bottom: 200px;
+          }
+
+
+      /* Bottom buttons */
+      footer {
+        display: flex;
+        justify-content: center;
+        gap: 15px; /* Reduced gap */
+        padding: 15px 20px; /* Reduced padding */
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      footer button {
+        padding: 10px 25px; /* Smaller buttons */
+        border: none;
+        border-radius: 6px; /* Smaller radius */
+        font-size: 1rem; /* Smaller font */
+        font-weight: 600;
+        cursor: pointer;
+        color: #fff;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .signup {
+        background: linear-gradient(90deg, #103550, #2a4ca8);
+      }
+
+      .register {
+        background: linear-gradient(95deg,#f8763a, #ff6600);
+      }
+
+      /* Button hover effect with ripple */
+      footer button::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+      }
+
+      footer button:hover::before {
+        width: 150px; /* Smaller ripple */
+        height: 150px;
+      }
+
+      footer button:hover {
+        transform: translateY(-2px); /* Reduced lift */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-15px); } /* Reduced distance */
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(15px); } /* Reduced distance */
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Responsive Design */
+      @media only screen and (max-width: 600px) {
+        body {
+          font-size: 14px;
+        }
+
+        header img {
+          width: 60px;
+          height: 60px;
+        }
+
+        h4 {
+          font-size: 0.9rem;
+          letter-spacing: 1.5px;
+          margin-top: -700px;
+        }
+
+        .welcome {
+          font-size: 1.2rem;
+          margin: 15px 0;
+        }
+
+         .marquee {
+            width: 100%;
+            background-color: transparent; /* burnt brown */
+            color: #ff6600;
+            font-size: 22px;
+            text-align: center;
+            padding: 16px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+          }
+
+          .marquee-text {
+            display: inline-block;
+            white-space: nowrap;
+            letter-spacing: 0.5px; }
+
+
+        footer {
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          padding: 15px;
+        }
+
+        footer button {
+          width: 100%;
+          max-width: 200px;
+          padding: 8px 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Logo + Motto -->
+
+    <header>
+      <img src="logo.png" alt="CarAid" />
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Welcome Message -->
+    <div class="welcome">
+      <h4>Welcome to our Official page</h4>
+      <p></p>
+    </div>
+    <div class="marquee">
+      <span class="marquee-text" id="marquee-text"></span>
+    </div>
+
+    <!-- Bottom Buttons -->
+    <footer>
+      <a href="signup.html"><button class="signup">Sign Up</button></a>
+      <a href="register.html"><button class="register">Register</button></a>
+    </footer>
+
+    <script>
+      const messages = [
+        "Welcome to CarAid — park well, we dey close by...",
+        "Professionality, Credibility, and swift...",
+        "We’re here to serve you better — let’s get started!",
+      ];
+
+      const textEl = document.getElementById("marquee-text");
+      const typingSpeed = 100; // ms per letter
+      const fadeSpeed = 40; // ms per letter fade-out
+      const delayAfterTyping = 1000; // wait before fading out
+      let index = 0;
+
+      async function typeText(text) {
+        textEl.textContent = "";
+        for (let i = 0; i < text.length; i++) {
+          textEl.textContent += text[i];
+          await new Promise((res) => setTimeout(res, typingSpeed));
+        }
+      }
+
+      async function fadeOutText() {
+        const text = textEl.textContent;
+        for (let i = text.length; i >= 0; i--) {
+          textEl.textContent = text.substring(0, i);
+          await new Promise((res) => setTimeout(res, fadeSpeed));
+        }
+      }
+
+      async function runMarquee() {
+        while (true) {
+          await typeText(messages[index]);
+          await new Promise((res) => setTimeout(res, delayAfterTyping));
+          await fadeOutText();
+          index = (index + 1) % messages.length;
+        }
+      }
+
+      runMarquee();
+    </script>
+  </body>
+</html>

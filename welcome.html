@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CarAid - Welcome</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Segoe UI, Tahoma, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          #3356af 0%,
+          #f76d11 50%,
+          #ff8c42 100%
+        );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        max-height: 100vh;
+        overflow-y: hidden;
+        color: #fff;
+      }
+
+      .message-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+        padding: 40px 30px;
+        background: transparent;
+        backdrop-filter: blur(12px);
+        border-radius: 20px;
+        animation: zoomIn 0.8s ease-out;
+      }
+
+      .message-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #3356af, #f76d11, #ff8c42);
+        border-radius: 20px 20px 0 0;
+      }
+
+      .message {
+        position: absolute;
+        top: 40px;
+        left: 30px;
+        right: 30px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s ease-in-out;
+      }
+
+      .message.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .message img {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        transition: transform 0.5s ease;
+        animation: pulse 2s infinite ease-in-out;
+      }
+
+      .message p {
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        font-weight: 500;
+        color: #fff;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+        line-height: 1.4;
+      }
+
+      .message span {
+        display: block;
+        font-family: "Montserrat", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 400;
+        color: #f0f0f0;
+        opacity: 0.9;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
+        margin-top: 30px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        width: 0;
+        height: 100%;
+        background: linear-gradient(90deg, #f76d11, #ff8c42);
+        transition: width 2.5s linear;
+      }
+
+      .progress-fill.active {
+        width: 100%;
+      }
+
+      @keyframes zoomIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 600px) {
+        .message-container {
+          padding: 30px 20px;
+          max-width: 90%;
+        }
+
+        .message p {
+          font-size: 1.6rem;
+        }
+
+        .message span {
+          font-size: 0.95rem;
+        }
+
+        .message img {
+          width: 60px;
+          height: 60px;
+        }
+      }
+
+      @media (min-width: 601px) and (max-width: 1024px) {
+        .message-container {
+          max-width: 80%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="message-container">
+      <div class="message active" id="msg1">
+        <img src="logo.png" alt="CarAid Logo" />
+        <p>Welcome to CarAid, <span id="name1"></span></p>
+        <span>Your journey with us begins now.</span>
+        <div class="progress-bar">
+          <div class="progress-fill active"></div>
+        </div>
+      </div>
+
+      <div class="message" id="msg2">
+        <img src="logo.png" alt="CarAid Logo" />
+        <p>Congratulations, <span id="name2"></span></p>
+        <span>You’re now part of our roadside assistance family.</span>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+      </div>
+      <div class="message" id="msg3">
+        <img src="logo.png" alt="CarAid Logo" />
+        <p>Hello, <span id="name3"></span></p>
+        <span>Get ready for secure, reliable support on the road.</span>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+      </div>
+    </div>
+
+    <script>
+      // Simulate customer name (replace with actual data from registration)
+      const customerName = localStorage.getItem("customerName") || "Daniel";
+
+      // Update all messages with customer name
+      document.getElementById("name1").textContent = customerName;
+      document.getElementById("name2").textContent = customerName;
+      document.getElementById("name3").textContent = customerName;
+
+      // Animation sequence
+      const messages = document.querySelectorAll(".message");
+      const progressBars = document.querySelectorAll(".progress-fill");
+      let index = 0;
+
+      function showNextMessage() {
+        if (index < messages.length - 1) {
+          messages[index].classList.remove("active");
+          progressBars[index].classList.remove("active");
+          index++;
+          messages[index].classList.add("active");
+          progressBars[index].classList.add("active");
+          messages[index].style.animation = "fadeInUp 0.8s ease-out";
+        } else {
+          // Redirect after last message
+          setTimeout(() => {
+            window.location.href = "customerhome.html";
+          }, 2500);
+        }
+      }
+
+      // Start animation cycle
+      setInterval(showNextMessage, 2500);
+    </script>
+  </body>
+</html>
